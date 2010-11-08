@@ -45,21 +45,21 @@ INSTALLING PHP ON UBUNTU/DEBIAN
 
 Skip this part if you already have access to a web server that can run PHP.
 
-$> sudo apt-get install apache2
-$> sudo apt-get install php5 php5-dev php-pear
+$> sudo aptitude install apache2
+$> sudo aptitude install php5 php5-dev php-pear
 $> sudo a2enmod php5
 $> sudo mkdir -p /var/www/link
-$> sudo chown www-data:www-data /var/www/link      
+$> sudo chown www-data:www-data /var/www/link
 
 INSTALLING OAUTH PHP LIB
 
 If you do not control your server, you will need to ask your administrator
 to install this module.
 
-$> sudo apt-get install build-essential libcurl-devel
+$> sudo apt-get install build-essential libcurl-devel libpcre3-dev
 $> sudo pecl install oauth
-$> cat "extension=oauth.so" > /etc/php5/apache2/conf.d/oauth.ini
-$> sudo apache2ctl restart
+$> sudo su -c 'echo "extension=oauth.so" > /etc/php5/apache2/conf.d/oauth.ini'
+$> sudo /etc/init.d/apache2 restart
 
 The manual is here http://www.php.net/manual/en/book.oauth.php
 
@@ -71,24 +71,24 @@ to install this module.
 Edit /etc/php5/apache2/php.ini and uncomment the error_log line
 error_log = /var/log/php_errors.log
 
-$> touch /var/log/php_errors.log
-$> chown www-data:www-data /var/log/php_errors.log
-$> sudo apache2ctl restart
+$> sudo touch /var/log/php_errors.log
+$> sudo chown www-data:www-data /var/log/php_errors.log
+$> sudo /etc/init.d/apache2 restart
 
 CHECK OUT THE EXAMPLE
 
-$> cd ~ 
+$> cd ~
 $> git clone git://github.com/operasoftware/PhpOperaLink
 $> cd PhpOperaLink
 
 Copy the code to your web server
 $> cp -R *.php css /var/www/link/
 
-REGISTER YOUR APP ON auth.opera.com/service/oauth
+REGISTER YOUR APP ON https://auth.opera.com/service/oauth/application/new
 
 Choose "Web Application"
-For the callback URL, choose 127.0.0.1/link/index.php (or use the name of
-the server that you are deploying this on.)
+For the callback URL, choose http://127.0.0.1/link/index.php (or use
+the name of the server that you are deploying this on.)
 Edit config.php and put in the key and secret that you are granted
 
 TRY IT
