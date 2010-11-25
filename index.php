@@ -91,7 +91,23 @@ try {
         $oauthc->setToken($access_token,$access_token_secret);
 
         // make the request
-        $data = $oauthc->fetch('https://link.api.opera.com/rest/speeddial/children/');
+        try {
+            $data = $oauthc->fetch('https://link.api.opera.com/rest/speeddial/children/');
+        }
+        catch (OAuthException $e) {
+            echo("The response information:");
+            echo("<pre>");
+            print_r($oauthc->getLastResponseInfo());
+            echo("</pre>");
+            echo("The response body:");
+            echo("<pre>");
+            print_r($oauthc->getLastResponse());
+            echo("</pre>");
+            echo("The PHP exception info:");
+            echo("<pre>");
+            echo($e);
+            echo("</pre>");
+        }
         $response_info = $oauthc->getLastResponse();
 
         // print out the speeddial data
