@@ -6,7 +6,7 @@
 session_start();
 include_once("config.php");
 
-if ($_REQUEST['reset']) {
+if (array_key_exists('reset', $_REQUEST) && $_REQUEST['reset']) {
     unset($_SESSION['orequest_token_secret']);
     unset($_SESSION['oaccess_oauth_token']);
     unset($_SESSION['oaccess_oauth_token_secret']);
@@ -27,15 +27,18 @@ try {
 
     $oauthc = new OAuth($oauth['opera']['consumerkey'],
                         $oauth['opera']['consumersecret'],
-                        OAUTH_SIG_METHOD_HMACSHA1,OAUTH_AUTH_TYPE_URI); //initiate
+                        OAUTH_SIG_METHOD_HMACSHA1,
+                        OAUTH_AUTH_TYPE_URI); //initiate
 
     $oauthc->enableDebug();
 
     if(empty($_SESSION['orequest_token_secret'])) {
         // first stage is to get and keep the request token and secret
-        // and then re-direct the user to page where they enter their credentials
-        // for this request, we need to use POST method
-        $request_token_info = $oauthc->getRequestToken($oauth['opera']['requesttokenurl'],OAUTH_HTTP_METHOD_POST); //get request token
+        // and then re-direct the user to page where they enter their
+        // credentials for this request, we need to use POST method
+        $request_token_url = $oauth['opera']['requesttokenurl'];
+        $request_token_info = $oauthc->getRequestToken($request_token_url,
+                                                       OAUTH_HTTP_METHOD_POST);
 
         // check for errors
         if($request_token_info == FALSE) {
