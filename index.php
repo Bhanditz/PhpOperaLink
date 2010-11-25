@@ -115,12 +115,12 @@ try {
 
         echo("<html>");
         echo("<head><title>Opera Link SpeedDial PHP demo</title>");
-        echo("<link rel=\"stylesheet\" href=\"css/index.css\" type=\"text/css\">");				
+        echo("<link rel=\"stylesheet\" href=\"css/index.css\" type=\"text/css\">");
         echo("</head>");
 
         echo("<body>");
         echo("<div id=\"wrap\">");
-        echo("<div><h2>Opera Link - Speeddials</h2><a href=\"/link/index.php\">Update</a></div>");	
+        echo("<div><h2>Opera Link - Speeddials</h2><a href=\"/link/index.php\">Update</a></div>");
         echo("<div>");
         echo("<ol>");
 
