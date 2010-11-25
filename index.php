@@ -112,6 +112,12 @@ try {
 
         // print out the speeddial data
         $json_data_array = json_decode($response_info,true);
+        uasort($json_data_array, function ($a, $b) {
+                $apos = $a["id"];
+                $bpos = $b["id"];
+                if ($apos == $bpos) return 0;
+                return ($bpos > $apos) ? -1 : 1;
+            });
 
         echo("<html>");
         echo("<head><title>Opera Link SpeedDial PHP demo</title>");
